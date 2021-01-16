@@ -12,7 +12,7 @@ function restartAudio(){
     let audio = document.getElementById("audio");
     let ok = false;
     for(let index = indexSet; index < data.cuts.length; index++){
-        if (data.cuts[index].type != "hide") {
+        if (data.cuts[index].type == "sound") {
             indexSet = index;
             let nextData = data.cuts[index + 1];
             if (nextData != undefined){
@@ -29,7 +29,6 @@ function restartAudio(){
     if (ok == false){
         skipTime = -1;
     }
-
 }
 
 function getSeconds(startTime){
@@ -53,6 +52,9 @@ function timeUpdate(){
     if (audio.currentTime >= skipTime && skipTime > 0){
         indexSet++;
         restartAudio();
+    }
+    if (skipTime == -1){
+        audio.pause();
     }
 }
 window.onload = load
